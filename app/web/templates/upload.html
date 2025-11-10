@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedDocReader - Upload Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">MedDocReader</a>
+            <div class="navbar-nav">
+                <a class="nav-link" href="/">Dashboard</a>
+                <a class="nav-link active" href="/upload">Upload</a>
+                <a class="nav-link" href="/review">Review</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h1>Upload Document</h1>
+        
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/upload" method="post" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label for="file" class="form-label">Select Document</label>
+                                <input type="file" class="form-control" id="file" name="file" 
+                                       accept=".pdf,.jpg,.jpeg,.png,.tiff" required>
+                                <div class="form-text">
+                                    Supported formats: PDF, JPG, JPEG, PNG, TIFF
+                                </div>
+                            </div>
+                            
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">Upload and Process</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <h5>Processing Information</h5>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <strong>Text Extraction:</strong> Uses Azure Form Recognizer to extract text from documents
+                        </li>
+                        <li class="list-group-item">
+                            <strong>NLP Analysis:</strong> Uses spaCy to identify patient information
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Confidence Scoring:</strong> Automatically scores confidence of extracted data
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Review Process:</strong> Low-confidence data will be flagged for human review
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

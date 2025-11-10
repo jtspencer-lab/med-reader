@@ -1,0 +1,255 @@
+Key Steps
+
+
+Setup
+
+Connects to Azure Form Recognizer using endpoint and key.
+Loads a spaCy NLP model (en_core_web_sm).
+Establishes a PostgreSQL database connection.
+
+
+
+OCR Extraction
+
+extract_text_from_image(image_path):
+
+Sends the image to Azure Form Recognizer.
+Retrieves and combines text from all detected lines.
+
+
+
+
+
+NLP Cleaning & Validation
+
+clean_and_validate(text):
+
+Uses spaCy to identify entities like PERSON, DATE, and insurance-related text.
+Assigns confidence scores (default or from entity attributes).
+Normalizes date format and stores extracted values in a dictionary.
+
+
+
+
+
+Confidence Check
+
+needs_review(data, threshold=0.75):
+
+Flags fields with confidence below the threshold for human review.
+
+
+
+
+
+Database Insertion
+
+insert_into_db(data):
+
+Inserts validated patient data (name, DOB, insurance ID) into the patients table.
+
+
+
+
+
+Batch Processing
+
+process_batch(folder_path):
+
+Iterates through all image/PDF files in a folder.
+Extracts text, validates data, checks confidence.
+Either sends low-confidence fields for review or inserts into the database.
+Prints progress and completion message.
+
+
+
+
+
+
+Notable Features
+
+Integrates Azure AI OCR for document analysis.
+Uses spaCy NLP for entity recognition and confidence scoring.
+Implements a human review mechanism for low-confidence data.
+Supports batch processing of multiple scanned forms.
+Stores results in a PostgreSQL database.
+
+
+
+
+
+
+
+MedDocReader/
+├── app/                          # Main application package
+│   ├── __init__.py              # Package initialization
+│   ├── main.py                  # Application entry point
+│   ├── config.py                # Configuration management
+│   │
+│   ├── api/                     # API layer
+│   │   └── routes/              # API route definitions
+│   │
+│   ├── services/                # Business logic layer
+│   │   └── __init__.py          # Document processing, NLP, Azure services
+│   │
+│   ├── models/                  # Data models
+│   │   └── __init__.py          # Document, PatientData, ProcessingResult models
+│   │
+│   ├── database/                # Database layer
+│   │   ├── __init__.py          # Connection management
+│   │   └── repositories/        # Data access layer
+│   │       └── __init__.py      # Document, Patient, Log repositories
+│   │
+│   ├── web/                     # Web interface
+│   │   ├── routes/              # Web routes
+│   │   │   └── __init__.py      # FastAPI web interface
+│   │   ├── templates/           # HTML templates
+│   │   │   ├── dashboard.html   # Main dashboard
+│   │   │   └── upload.html      # Document upload page
+│   │   └── static/              # Static files (CSS, JS)
+│   │
+│   ├── core/                    # Core components
+│   └── utils/                   # Utility functions
+│       └── __init__.py          # File, text, validation utilities
+│
+├── tests/                       # Test suite
+├── scripts/                     # Utility scripts
+│   └── migrate.py               # Migration helper
+├── backup/                      # Backup of old files
+├── requirements.txt             # Dependencies
+├── requirements-dev.txt         # Development dependencies
+├── requirements-prod.txt        # Production dependencies
+├── .env.example                 # Environment template
+├── docker-compose.yml           # Docker configuration
+├── Dockerfile                   # Docker image
+├── .gitignore                   # Git ignore rules
+└── README.md                    # Documentation
+
+
+
+Separation of Concerns: Each layer has a specific responsibility
+Configuration Management: Centralized config with environment variables
+Database Layer: Proper connection management and repository pattern
+Service Layer: Clean business logic separated from data access
+Web Interface: FastAPI-based REST API with HTML templates
+Error Handling: Comprehensive logging and error management
+Docker Support: Ready for containerized deployment
+Testing Framework: Structure ready for unit and integration test
+🚀 How to Use the New Structure
+Set up environment:
+   cp .env.example .env
+   # Edit .env with your Azure and database credentials
+
+Install dependencies:
+   pip install -r requirements.txt
+   python -m spacy download en_core_web_sm
+
+Run the application:
+   python app/main.py
+
+Access the web interface:
+    Dashboard: http://localhost:8000
+    API docs: http://localhost:8000/docs
+
+
+
+🎯 Next Steps
+Configure your environment (.env file)
+Set up your database (PostgreSQL)
+Configure Azure Form Recognizer credentials
+Test the new structure with your documents
+Customize templates as needed
+
+--------------------------------------------------------------------
+
+jspencer-3c: Analyze this codebase to generate or update `.github/copilot-instructions.md` for guiding AI coding agents.
+
+Focus on discovering the essential knowledge that would help an AI agents be immediately productive in this codebase. Consider aspects like:
+- The "big picture" architecture that requires reading multiple files to understand - major components, service boundaries, data flows, and the "why" behind structural decisions
+- Critical developer workflows (builds, tests, debugging) especially commands that aren't obvious from file inspection alone
+- Project-specific conventions and patterns that differ from common practices
+- Integration points, external dependencies, and cross-component communication patterns
+
+Source existing AI conventions from `**/{.github/copilot-instructions.md,AGENT.md,AGENTS.md,CLAUDE.md,.cursorrules,.windsurfrules,.clinerules,.cursor/rules/**,.windsurf/rules/**,.clinerules/**,README.md}` (do one glob search).
+
+Guidelines (read more at https://aka.ms/vscode-instructions-docs):
+- If `.github/copilot-instructions.md` exists, merge intelligently - preserve valuable content while updating outdated sections
+- Write concise, actionable instructions (~20-50 lines) using markdown structure
+- Include specific examples from the codebase when describing patterns
+- Avoid generic advice ("write tests", "handle errors") - focus on THIS project's specific approaches
+- Document only discoverable patterns, not aspirational practices
+- Reference key files/directories that exemplify important patterns
+
+Update `.github/copilot-instructions.md` for the user, then ask for feedback on any unclear or incomplete sections to iterate.
+
+GitHub Copilot: I'll start with a short todo list for the task, then search the repo for existing AI instruction files and read key project files (README and top app files) so I can produce a focused `.github/copilot-instructions.md`. Expected outcome: locate any existing instruction files and collect codebase patterns to merge into a concise instructions file. I'll run the todo list creation and a repository file search now.
+
+Created 6 todos
+
+Searched for files matching `**/{.github/copilot-instructions.md,AGENT.md,AGENTS.md,CLAUDE.md,.cursorrules,.windsurfrules,.clinerules,.cursor/rules/**,.windsurf/rules/**,.clinerules/**,README.md}`, 2 matches
+
+I'm going to open README and key app files to extract architecture, start-up commands, and conventions; expected outcome: collect concrete examples and references to cite in the instructions file. I'll read README.md, then the main app files.
+
+Read [](file:///c%3A/JTS/AIDev/MedDocReader/README.md)
+
+Now I'll open app/main.py, app/config.py, app/__init__.py, and __init__.py to extract routing, startup, config patterns, and how services are structured. I'll fetch their contents next.
+
+Read [](file:///c%3A/JTS/AIDev/MedDocReader/app/main.py)
+
+Read [](file:///c%3A/JTS/AIDev/MedDocReader/app/config.py)
+
+Read [](file:///c%3A/JTS/AIDev/MedDocReader/app/__init__.py)
+
+Read [](file:///c%3A/JTS/AIDev/MedDocReader/app/services/__init__.py)
+
+I'll create `.github/copilot-instructions.md` with a concise, project-specific guide that references files and commands I inspected. Expected outcome: new file added at repo root under `.github/`.Updating the todo list to reflect progress (repo search and initial file reads done), then I'll add the new `.github/copilot-instructions.md` file.
+
+Starting (4/6) *Draft copilot-instructions.md*
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Starting (6/6) *Report and ask for feedback*
+
+## Quick update — what I did and what's next
+
+I created/updated copilot-instructions.md with concise, project-specific guidance (architecture, run/test commands, patterns, integration points, examples). File path: copilot-instructions.md.
+
+Actions taken
+- Read README.md, main.py, config.py, __init__.py, and __init__.py to extract project conventions.
+- Added copilot-instructions.md with targeted instructions (uses concrete filenames and code examples).
+- Updated the internal todo list to mark drafting and file creation complete; reporting and feedback is in-progress.
+
+Files changed
+- copilot-instructions.md — new file added. Purpose: guide AI coding agents on how to be productive in this repo (architecture, commands, patterns, examples).
+
+Where I focused (high value, repo-specific)
+- Entrypoint & startup: main.py — logging, `init_database()` call, creation of `uploads` and template/static dirs, and how the FastAPI app is served.
+- Configuration: config.py — centralized dataclasses (`config`, `db_config`, `azure_config`, `nlp_config`). Prefer using these over direct env access.
+- Services: __init__.py — pattern: services construct infra clients (`AzureFormRecognizerService`, `NLPService`) in __init__, use repositories (`DocumentRepository`, `PatientRepository`, `ProcessingLogRepository`), and return `ProcessingResult` objects.
+- Persistence: repository layer under repositories — all DB interactions should be routed through repository methods.
+- Integrations: Azure Form Recognizer (`azure.ai.formrecognizer`), spaCy (model from `SPACY_MODEL` / `nlp_config`), PostgreSQL (connection via `DatabaseConfig.connection_string`).
+- Dev workflows: venv setup, running `python app/main.py`, `uvicorn`, `docker-compose up -d`, `pytest tests/`, and formatting commands from README.
+
+A few concrete examples included in the file
+- How to call `DocumentProcessingService.process_batch()` from tests or scripts.
+- Where to add new config values (edit `AppConfig` in config.py).
+- Preserve `ProcessingResult` return shape and status updates when editing service flows.
+
+Next steps / how I can iterate
+- Expand the instructions with a small mocking example for spaCy and Azure client (unit test scaffolding).
+- Add a recommended test fixture for mocking `DocumentRepository`/`PatientRepository`.
+- Add CI notes (how to cache spaCy model or mock it in CI) if you want CI-specific guidance.
+
+Questions / feedback for you
+- Do you want a short unit-test scaffold added to `tests/services/test_document_processing.py` that mocks Azure + spaCy and asserts a happy path? (I can create it.)
+- Any additional integrations (Sentry, other cloud) I should mention?
+
+If you'd like those additions, tell me which one and I’ll implement it next.
+
+Made changes.
