@@ -1,6 +1,6 @@
-# MedDocReader - Medical Document Processing System
+# MedDocReader - Exporation of coding with Visual Code and Copilot
 
-A comprehensive Python application for processing medical documents using Azure Form Recognizer, spaCy NLP, and PostgreSQL database with a web interface for review.
+A  Python application for processing  documents using Azure Form Recognizer, spaCy NLP, and PostgreSQL database with a web interface for review.
 
 ## Features
 
