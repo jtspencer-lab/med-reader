@@ -2,6 +2,23 @@
 
 A  Python application for processing signup documents and utilizing Azure Form Recognizer, spaCy NLP, and PostgreSQL database with a web interface for review.
 
+I started with a sinlge file that did super basics proof of concept read document, process and save.
+
+I then utilized Copliot to incermentally evolve the code to what you see here.
+
+I use copilot to 
+- adde error checking and logging
+- break into components
+- improve handling of API calls
+- restructure the project to match Python standards
+- add configuratio and enviroment settings
+
+Copilot also created a file that tells how I want copilot to approach my project, that file is here    .github\copilot-instructions.md
+
+It's quite impressive how rapidly you reduce the coding drugery.
+
+This was built in a matter of hours
+
 ## Features
 
 - **Document Processing**: Extract text from medical documents using Azure Form Recognizer
