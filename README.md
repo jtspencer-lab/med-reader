@@ -1,6 +1,6 @@
-# MedDocReader - Exporation of coding with Visual Code and Copilot
+# Document Signup Reader - Exploration of coding with Visual Code and Copilot
 
-A  Python application for processing  documents using Azure Form Recognizer, spaCy NLP, and PostgreSQL database with a web interface for review.
+A  Python application for processing signup documents and utilizing Azure Form Recognizer, spaCy NLP, and PostgreSQL database with a web interface for review.
 
 ## Features
 
