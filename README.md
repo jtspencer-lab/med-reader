@@ -1,23 +1,22 @@
-# Document Signup Reader - Exploration of coding with Visual Code and Copilot
+# Exploration of coding with Visual Code and Copilot
 
-A  Python application for processing signup documents and utilizing Azure Form Recognizer, spaCy NLP, and PostgreSQL database with a web interface for review.
+I build a sample Document Signup processing Python application for processing signup documents and utilizing Azure Form Recognizer, spaCy NLP, and PostgreSQL database with a web interface for review.
 
-I started with a sinlge file that did super basics proof of concept read document, process and save.
+I started with a single file that read an input file, extracted some data and parked it in a database.
 
-I then utilized Copliot to incermentally evolve the code to what you see here.
+I then utilized Copilot to incrementally evolve the code a complete python stack with code modularity, standard project organization, configuration and erroring handling.
 
-I use copilot to 
-- adde error checking and logging
+I incrementally used copilot to 
+- added error checking and logging
 - break into components
 - improve handling of API calls
 - restructure the project to match Python standards
-- add configuratio and enviroment settings
+- add configuration and environment settings
 
-Copilot also created a file that tells how I want copilot to approach my project, that file is here    .github\copilot-instructions.md
+Copilot also created a file that tells how I want copilot to approach my project, 
+that file is here    .github\copilot-instructions.md
 
-It's quite impressive how rapidly you reduce the coding drugery.
-
-This was built in a matter of hours
+It's quite impressive how rapidly you reduce the coding drudgery.
 
 ## Features
 
